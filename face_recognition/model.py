@@ -98,16 +98,19 @@ class FaceRecognitionFromArray(Base):
             bottom = face.bottom()
             right = face.right()
 
-            matches = self.compare_faces(self.encodings, encoding)
-
-            distances = self.face_distance(self.encodings, encoding)
-
-            min_distance_index = np.argmin(distances)
-
             name = "Unknown"
 
-            if matches[min_distance_index]:
-                name = self.names[min_distance_index]
+            if len(self.encodings) != 0:
+
+                matches = self.compare_faces(self.encodings, encoding)
+
+                distances = self.face_distance(self.encodings, encoding)
+
+                min_distance_index = np.argmin(distances)
+
+
+                if matches[min_distance_index]:
+                    name = self.names[min_distance_index]
 
             draw_box_name_on_image(ori_img, name, left, top, right, bottom)
         
